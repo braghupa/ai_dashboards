@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VCH Medical Imaging — Getting Started</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Calibri', 'Segoe UI', sans-serif; background: #F2F4F5; color: #2B2D2F; }
+
+    .hdr {
+      background: #0078AE; color: #fff;
+      padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .hdr-l { display: flex; align-items: center; gap: 14px; }
+    .org { font-size: 16px; font-weight: 700; }
+    .sub { font-size: 11px; opacity: .8; margin-top: 2px; }
+    .hdr-badge { font-size: 12px; background: rgba(255,255,255,.2); padding: 5px 12px; border-radius: 12px; }
+    .subbar { background: #006271; padding: 9px 24px; }
+    .sub-title { font-size: 11px; color: rgba(255,255,255,.85); letter-spacing: .04em; }
+
+    .page { max-width: 900px; margin: 0 auto; padding: 24px 16px 40px; }
+
+    .disclaimer {
+      background: #FFF8E1; border-left: 4px solid #F26522; border-radius: 0 6px 6px 0;
+      padding: 12px 16px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start;
+    }
+    .disc-text { font-size: 13px; color: #5D3A00; line-height: 1.6; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; color: #53585F;
+      text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px;
+    }
+
+    .step-row {
+      display: flex; gap: 0; margin-bottom: 20px;
+      background: #fff; border: 1px solid #DDE2E6; border-radius: 8px; padding: 20px 16px;
+    }
+    .step { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute; top: 18px; left: 62%; width: 76%; height: 2px;
+      background: #DDE2E6; z-index: 0;
+    }
+    .step-num {
+      width: 38px; height: 38px; border-radius: 50%; background: #0078AE; color: #fff;
+      font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 1; flex-shrink: 0;
+    }
+    .step-label { font-size: 11px; color: #53585F; text-align: center; margin-top: 8px; line-height: 1.4; padding: 0 4px; }
+
+    .role-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .role-card { border: 1px solid #DDE2E6; border-radius: 6px; padding: 12px 14px; border-top: 3px solid #0078AE; background: #fff; }
+    .role-card.teal  { border-top-color: #009793; }
+    .role-card.green { border-top-color: #2E7D32; }
+    .role-card.orange{ border-top-color: #F26522; }
+    .role-card.purple{ border-top-color: #843275; }
+    .role-icon { font-size: 22px; color: #0078AE; margin-bottom: 7px; }
+    .role-card.teal  .role-icon { color: #009793; }
+    .role-card.green .role-icon { color: #2E7D32; }
+    .role-card.orange .role-icon{ color: #F26522; }
+    .role-card.purple .role-icon{ color: #843275; }
+    .role-name { font-size: 13px; font-weight: 700; color: #2B2D2F; margin-bottom: 6px; }
+    .role-tab-pill {
+      display: inline-block; background: #F2F4F5; border-radius: 3px;
+      padding: 2px 6px; font-size: 10px; margin: 2px 2px 2px 0; color: #37474F;
+    }
+
+    .filter-card { background: #fff; border: 1px solid #DDE2E6; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; }
+    .filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+    .fitem { background: #F2F4F5; border-radius: 6px; padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; }
+    .fitem-icon { font-size: 18px; color: #0078AE; flex-shrink: 0; margin-top: 1px; }
+    .fitem-label { font-size: 12px; font-weight: 700; color: #2B2D2F; margin-bottom: 3px; }
+    .fitem-desc { font-size: 11px; color: #53585F; line-height: 1.45; }
+
+    .rag-card { background: #fff; border: 1px solid #DDE2E6; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; }
+    .rag-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
+    @media(max-width: 500px) { .rag-row { grid-template-columns: 1fr; } }
+    .rag-item { border-radius: 6px; padding: 10px 12px; border-left: 4px solid transparent; }
+    .rag-g { background: #E8F5E9; border-left-color: #2E7D32; }
+    .rag-y { background: #FFF8E1; border-left-color: #F26522; }
+    .rag-r { background: #FFEBEE; border-left-color: #C62828; }
+    .rag-title { font-size: 12px; font-weight: 700; }
+    .rag-g .rag-title { color: #1B5E20; }
+    .rag-y .rag-title { color: #E65100; }
+    .rag-r .rag-title { color: #B71C1C; }
+    .rag-desc { font-size: 11px; margin-top: 4px; line-height: 1.45; }
+    .rag-g .rag-desc { color: #2E7D32; }
+    .rag-y .rag-desc { color: #E65100; }
+    .rag-r .rag-desc { color: #B71C1C; }
+
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .feat-card { background: #fff; border: 1px solid #DDE2E6; border-radius: 6px; padding: 12px 14px; }
+    .feat-icon { font-size: 20px; color: #0078AE; margin-bottom: 6px; }
+    .feat-name { font-size: 12px; font-weight: 700; color: #2B2D2F; margin-bottom: 4px; }
+    .feat-desc { font-size: 11px; color: #53585F; line-height: 1.45; }
+
+    .ai-card {
+      background: #D4EFFC; border-radius: 8px; padding: 14px 16px;
+      margin-bottom: 20px; display: flex; gap: 14px; align-items: flex-start;
+    }
+    .ai-icon { font-size: 26px; color: #006271; flex-shrink: 0; }
+    .ai-title { font-size: 14px; font-weight: 700; color: #006271; margin-bottom: 5px; }
+    .ai-desc { font-size: 12px; color: #006271; line-height: 1.55; }
+    .ai-examples { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .ai-ex {
+      background: #fff; border: 1px solid #9BCDE8; border-radius: 4px;
+      padding: 4px 10px; font-size: 11px; color: #006271;
+    }
+
+    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #0078AE; color: #fff; text-decoration: none;
+      padding: 10px 20px; border-radius: 6px; font-size: 13px; font-weight: 700;
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .cta-btn:hover { background: #006271; }
+    .cta-btn.outline {
+      background: #fff; color: #0078AE; border: 1px solid #0078AE;
+    }
+    .cta-btn.outline:hover { background: #D4EFFC; }
+
+    hr.div { border: none; border-top: 1px solid #DDE2E6; margin: 18px 0; }
+
+    .footer {
+      text-align: center; font-size: 11px; color: #53585F;
+      padding: 14px 0 0; border-top: 1px solid #DDE2E6; margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-l">
+    <svg width="32" height="28" viewBox="0 0 80 70" aria-hidden="true">
+      <polygon points="40,5 75,65 5,65" fill="white" opacity=".22"/>
+      <polygon points="40,5 62,40 18,40" fill="white" opacity=".5"/>
+      <polygon points="25,65 55,20 75,65" fill="white" opacity=".32"/>
+      <polygon points="5,65 40,20 55,65" fill="white" opacity=".52"/>
+    </svg>
+    <div>
+      <div class="org">VCH Medical Imaging</div>
+      <div class="sub">Capacity Planning Platform</div>
+    </div>
+  </div>
+  <div class="hdr-badge">Getting started</div>
+</div>
+<div class="subbar">
+  <span class="sub-title">User guide &nbsp;·&nbsp; All data is synthetic &nbsp;·&nbsp; For demonstration purposes only</span>
+</div>
+
+<div class="page">
+
+  <div class="disclaimer">
+    <i class="ti ti-alert-circle" style="font-size:20px;color:#F26522;flex-shrink:0;margin-top:1px"></i>
+    <div class="disc-text">
+      <strong>Synthetic data notice:</strong> All figures shown in this platform are computer-generated for demonstration purposes only.
+      No real patient, staffing, equipment, or operational data from VCH or PHC systems is used.
+      Do not use for clinical or operational decisions.
+    </div>
+  </div>
+
+  <div class="section-label">Getting oriented — 5 steps</div>
+  <div class="step-row">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-label">Select your role in the top-right header</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-label">Set your filters — HA, site, modality, period</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-label">Toggle between patient count and exam count</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-label">Navigate tabs to explore your view</div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-label">Ask the AI assistant questions about the data</div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div class="section-label">Choose your role</div>
+  <div class="role-grid">
+    <div class="role-card">
+      <div class="role-icon"><i class="ti ti-building-skyscraper"></i></div>
+      <div class="role-name">Executive</div>
+      <span class="role-tab-pill">Overview</span>
+      <span class="role-tab-pill">Demand vs capacity</span>
+      <span class="role-tab-pill">Alerts</span>
+      <span class="role-tab-pill">AI insights</span>
+    </div>
+    <div class="role-card teal">
+      <div class="role-icon"><i class="ti ti-building-hospital"></i></div>
+      <div class="role-name">Site manager</div>
+      <span class="role-tab-pill">Overview</span>
+      <span class="role-tab-pill">Site detail</span>
+      <span class="role-tab-pill">Equipment</span>
+      <span class="role-tab-pill">Labour FTEs</span>
+      <span class="role-tab-pill">Waitlist</span>
+    </div>
+    <div class="role-card green">
+      <div class="role-icon"><i class="ti ti-device-desktop"></i></div>
+      <div class="role-name">Modality lead</div>
+      <span class="role-tab-pill">Overview</span>
+      <span class="role-tab-pill">Modality view</span>
+      <span class="role-tab-pill">Equipment</span>
+      <span class="role-tab-pill">Waitlist</span>
+    </div>
+    <div class="role-card orange">
+      <div class="role-icon"><i class="ti ti-calculator"></i></div>
+      <div class="role-name">Finance / Planning</div>
+      <span class="role-tab-pill">Overview</span>
+      <span class="role-tab-pill">Demand vs capacity</span>
+      <span class="role-tab-pill">Labour FTEs</span>
+      <span class="role-tab-pill">Forecast</span>
+    </div>
+    <div class="role-card purple">
+      <div class="role-icon"><i class="ti ti-stethoscope"></i></div>
+      <div class="role-name">Radiologist</div>
+      <span class="role-tab-pill">Overview</span>
+      <span class="role-tab-pill">Waitlist</span>
+      <span class="role-tab-pill">Demand vs capacity</span>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div class="section-label">Using the filters</div>
+  <div class="filter-card">
+    <div class="filter-row">
+      <div class="fitem">
+        <i class="ti ti-building fitem-icon" style="font-size:18px;color:#0078AE;flex-shrink:0;margin-top:1px"></i>
+        <div><div class="fitem-label">Health authority</div><div class="fitem-desc">VCH (8 sites) or PHC (SPH, MSJ), or view all 10 together</div></div>
+      </div>
+      <div class="fitem">
+        <i class="ti ti-map-pin" style="font-size:18px;color:#0078AE;flex-shrink:0;margin-top:1px"></i>
+        <div><div class="fitem-label">Site</div><div class="fitem-desc">Drill into VGH, UBC, RHS, LGH, SGH, SSH, QGH, WHC, SPH, or MSJ</div></div>
+      </div>
+      <div class="fitem">
+        <i class="ti ti-scan" style="font-size:18px;color:#0078AE;flex-shrink:0;margin-top:1px"></i>
+        <div><div class="fitem-label">Modality</div><div class="fitem-desc">Isolate X-Ray, MRI, CT, US, Echo, Nuc Med, or IR</div></div>
+      </div>
+      <div class="fitem">
+        <i class="ti ti-calendar" style="font-size:18px;color:#0078AE;flex-shrink:0;margin-top:1px"></i>
+        <div><div class="fitem-label">Period</div><div class="fitem-desc">2023, 2024, or YTD 2025. YoY delta updates automatically</div></div>
+      </div>
+      <div class="fitem">
+        <i class="ti ti-toggle-left" style="font-size:18px;color:#0078AE;flex-shrink:0;margin-top:1px"></i>
+        <div><div class="fitem-label">Patients / Exams</div><div class="fitem-desc">Patients = unique individuals. Exams = total procedures performed</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div class="section-label">Reading the colour indicators</div>
+  <div class="rag-card">
+    <div class="rag-row">
+      <div class="rag-item rag-g">
+        <div class="rag-title"><i class="ti ti-circle-check" style="font-size:13px;vertical-align:-1px;margin-right:3px"></i>Green — on target</div>
+        <div class="rag-desc">Utilisation &lt;80% · Waitlist &lt;30 days · Equipment in Good or Fair condition</div>
+      </div>
+      <div class="rag-item rag-y">
+        <div class="rag-title"><i class="ti ti-alert-triangle" style="font-size:13px;vertical-align:-1px;margin-right:3px"></i>Amber — watch</div>
+        <div class="rag-desc">Utilisation 80–90% · Waitlist 30–60 days · Equipment Aging</div>
+      </div>
+      <div class="rag-item rag-r">
+        <div class="rag-title"><i class="ti ti-circle-x" style="font-size:13px;vertical-align:-1px;margin-right:3px"></i>Red — action needed</div>
+        <div class="rag-desc">Utilisation &gt;90% · Waitlist &gt;60 days · Equipment Critical</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div class="section-label">What each tab shows</div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-layout-dashboard"></i></div>
+      <div class="feat-name">Overview</div>
+      <div class="feat-desc">Volume by site, population vs visitor demand, waitlist by modality — your starting point</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-scale"></i></div>
+      <div class="feat-name">Demand vs capacity</div>
+      <div class="feat-desc">Modality utilisation RAG bars and a 12-month seasonal trend line</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-alert-triangle"></i></div>
+      <div class="feat-name">Alerts</div>
+      <div class="feat-desc">Auto-generated flags for critical equipment, aging units under load, and waitlist breaches</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-table"></i></div>
+      <div class="feat-name">Site detail</div>
+      <div class="feat-desc">Cross-site comparison — volume, population, FTEs, waitlist, and critical equipment</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-device-desktop"></i></div>
+      <div class="feat-name">Equipment</div>
+      <div class="feat-desc">Unit count, age, utilisation, and status per site and modality</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-users"></i></div>
+      <div class="feat-name">Labour FTEs</div>
+      <div class="feat-desc">Radiologists, technologists, and admin per site with 2025 gap projections</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-list"></i></div>
+      <div class="feat-name">Waitlist</div>
+      <div class="feat-desc">Site × modality matrix of wait times in days against benchmarks</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-trending-up"></i></div>
+      <div class="feat-name">Forecast</div>
+      <div class="feat-desc">2025 demand forecast with confidence interval and FTE gap table</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><i class="ti ti-chart-radar"></i></div>
+      <div class="feat-name">Modality view</div>
+      <div class="feat-desc">Utilisation heatmap and dual-axis waitlist vs capacity chart</div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div class="section-label">AI insights assistant</div>
+  <div class="ai-card">
+    <i class="ti ti-robot ai-icon" style="font-size:26px;color:#006271;flex-shrink:0"></i>
+    <div>
+      <div class="ai-title">Ask questions in plain language</div>
+      <div class="ai-desc">
+        The AI assistant reads your active filters and all visible data to answer questions about
+        capacity pressure, waitlist risk, equipment priorities, and staffing gaps.
+        It tailors answers to your selected role. Try asking:
+      </div>
+      <div class="ai-examples">
+        <span class="ai-ex">Which sites have the highest MRI pressure?</span>
+        <span class="ai-ex">Does Richmond justify a new CT unit?</span>
+        <span class="ai-ex">Where are my FTE gaps for 2025?</span>
+        <span class="ai-ex">Which equipment needs urgent replacement?</span>
+        <span class="ai-ex">What's driving the August volume spike?</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+  <div class="section-label">Open the dashboard</div>
+  <div class="cta-row">
+    <a href="vch_medical_imaging_dashboard.html" class="cta-btn">
+      <i class="ti ti-layout-dashboard" style="font-size:16px"></i>
+      Launch dashboard
+    </a>
+    <a href="README_VCH_Dashboard.md" class="cta-btn outline">
+      <i class="ti ti-file-text" style="font-size:16px"></i>
+      View README
+    </a>
+  </div>
+
+  <div class="footer">
+    Vancouver Coastal Health &nbsp;·&nbsp; Medical Imaging Analytics &nbsp;·&nbsp;
+    Synthetic data only &nbsp;·&nbsp; For authorized internal use &nbsp;·&nbsp;
+    <a href="https://github.com/braghupa" style="color:#0078AE">github.com/braghupa</a>
+  </div>
+
+</div>
+</body>
+</html>
