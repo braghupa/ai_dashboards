@@ -16,7 +16,7 @@ def chat():
         system = body.get("system", "You are a helpful assistant.")
 
         response = client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-3-sonnet-20240229",
             max_tokens=400,
             system=system,
             messages=[{"role": "user", "content": message}]
