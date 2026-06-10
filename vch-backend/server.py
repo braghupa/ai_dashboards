@@ -7,6 +7,7 @@ app = Flask(__name__)
 CORS(app)  # allows your HTML frontend to call this server
 
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+print("API KEY LOADED:", os.environ.get("ANTHROPIC_API_KEY"))
 
 @app.route("/chat", methods=["POST"])
 def chat():
@@ -17,7 +18,7 @@ def chat():
 
         response = client.messages.create(
             model="claude-3-sonnet-20240229",
-            max_tokens=400,
+            max_tokens=200,
             system=system,
             messages=[{"role": "user", "content": message}]
         )
