@@ -487,7 +487,7 @@ function rForecast(el){
 
 function rChat(el){
   el.innerHTML=`<div class="card"><div class="ch"><i class="ti ti-robot"></i>AI insights — ${ROLE_LABELS[curRole]} view</div>
-  <div class="backend-banner"><i class="ti ti-info-circle" style="font-size:14px;flex-shrink:0"></i>AI chat requires the backend server. See <strong>README_BACKEND.md</strong> for setup. Update <code>BACKEND_URL</code> in this file once deployed.</div>
+  <div class="backend-banner"><i class="ti ti-info-circle" style="font-size:14px;flex-shrink:0"></i>AI chat requires the backend server. Contact owner if its not working</div>
   <div class="chat-msgs" id="chatMsgs"><div class="msg ai">Hello. I have access to all site, modality, equipment, FTE, waitlist, and population data. Ask me anything about capacity planning.</div></div>
   <div class="ci-row"><input type="text" id="chatIn" placeholder="e.g. Which sites have the highest MRI pressure?" onkeydown="if(event.key==='Enter')doChat()"/><button class="sbtn" onclick="doChat()">Send ↗</button></div></div>`;
 }
