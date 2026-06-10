@@ -316,10 +316,6 @@
 // ── CONFIG ── swap to your Render URL once deployed
 const BACKEND_URL = "https://ai-dashboards-backend.onrender.com";
 
-// 🔥 ADD THIS LINE RIGHT HERE
-fetch(`${BACKEND_URL}/health`);
-
-  
 const SITES={VCH:['VGH','UBC','RHS','LGH','SGH','SSH','QGH','WHC'],PHC:['SPH','MSJ']};
 const MODS=['X-Ray','MRI','CT','US','Echo','Nuc Med','IR'];
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -508,36 +504,10 @@ async function doChat(){
     if(!r.ok)throw new Error('Server error');
     const data=await r.json();
     document.getElementById('aiT').textContent=data.text||'No response.';
+  }catch(e){
+    document.getElementById('aiT').className='msg err';
+    document.getElementById('aiT').textContent='⚠ Could not connect to the AI backend. Make sure server.py is running and BACKEND_URL is set correctly. See README_BACKEND.md.';
   }
-  
-
-catch(async (e)) {
-  document.getElementById('aiT').textContent = "⏳ Waking up backend... please wait";
-
-  try {
-    await new Promise(r => setTimeout(r, 15000)); // wait 15 sec
-
-    const retry = await fetch(`${BACKEND_URL}/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message: q,
-        system: `You are a concise VCH medical imaging capacity planning analyst...`
-      })
-    });
-
-    const data = await retry.json();
-    document.getElementById('aiT').textContent = data.text || "No response.";
-
-  } catch {
-    document.getElementById('aiT').className = 'msg err';
-    document.getElementById('aiT').textContent =
-      "⚠ Backend still waking up. Try again in ~20 seconds.";
-  }
-}
-
-
-  
   m.scrollTop=m.scrollHeight;
 }
 
